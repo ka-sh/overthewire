@@ -25,28 +25,29 @@ function getParameters() {
 function decode(input, alpha) {
   var decoded = '';
   for (var i = 0; i < input.length; i++) {
-    if (input[i] != ' ') {
+    if (input[i] != ' '&&isNaN(input[i])) {
       var decodedCh = '';
-      var index = alpha.indexOf(input[i].tolower()
+      var index = alpha.indexOf(input[i].toLowerCase()
         .charCodeAt());
       decodedCh = String.fromCharCode(alpha[rotate(index)]);
-
-      if (input[i] == decodedCh) {
+      // console.log(input[i]," ",String.fromCharCode(alpha[index])," ",index);
+      if (input[i] == String.fromCharCode(alpha[index])) {
         decoded += decodedCh;
       } else {
         decoded += decodedCh.toUpperCase();
       }
     } else {
-      decoded += ' ';
+      decoded += input[i];
     }
   }
   return decoded;
 }
 
 function rotate(i) {
-  var index = i - 13;
-  if (i < 0) {
-    return index * -1;
+  console.log(i);
+  var index = i- 13;
+  if (index < 0) {
+    return index +generateAlphaCode().length;
   } else {
     return index;
   }
